@@ -20,5 +20,12 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+//        String url = "jdbc:sqlserver://property-database.database.windows.net:1433;"
+//                + "database=PropertyManagementSystem;"
+//                + "user=rjsilagan@property-database;"
+//                + "password=Dormtrackr888;"
+//                + "encrypt=true;"
+//                + "trustServerCertificate=false;"
+//                + "loginTimeout=30;";
     }
 }
