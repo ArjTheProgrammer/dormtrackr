@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.dormtrackr.DtPaymentController">
+   <children>
+      <HBox prefHeight="116.0" prefWidth="900.0" style="-fx-background-color: #f2f2f0;">
+         <children>
+            <Pane prefHeight="99.0" prefWidth="450.0" style="-fx-background-color: #f2f2f0;">
+               <children>
+                  <ImageView fitHeight="98.0" fitWidth="256.0" layoutX="25.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/payment_text.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+      <HBox layoutY="114.0" prefHeight="445.0" prefWidth="900.0" style="-fx-background-color: #f2f2f0;">
+         <children>
+            <Pane prefHeight="454.0" prefWidth="460.0" style="-fx-background-color: #f2f2f0;">
+               <children>
+                  <Pane layoutX="28.0" layoutY="44.0" prefHeight="252.0" prefWidth="400.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 10;">
+                     <children>
+                        <TextField layoutX="160.0" layoutY="34.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="#f2f2f0" layoutX="14.0" layoutY="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dormer ID" wrappingWidth="135.73674774169922">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="23.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#f2f2f0" layoutX="15.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Payment" wrappingWidth="200.53673553466797">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="23.0" />
+                           </font>
+                        </Text>
+                        <DatePicker editable="false" layoutX="15.0" layoutY="158.0" prefHeight="58.0" prefWidth="371.0" style="-fx-text-fill: #282727; -fx-padding: 0 10 0 10; -fx-background-color: #f2f2f0; -fx-text-style: bold;" />
+                     </children>
+                  </Pane>
+                  <Button layoutX="56.0" layoutY="357.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Add" textFill="#f2f2f0">
+                     <font>
+                        <Font name="Microsoft YaHei Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="175.0" layoutY="357.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Update" textFill="#f2f2f0">
+                     <font>
+                        <Font name="Microsoft YaHei Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="295.0" layoutY="357.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Delete" textFill="#f2f2f0">
+                     <font>
+                        <Font name="Microsoft YaHei Bold" size="18.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane prefHeight="446.0" prefWidth="441.0" style="-fx-background-color: #f2f2f0;">
+               <children>
+                  <Button fx:id="homeButton" layoutX="313.0" layoutY="360.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-radius: 30px; -fx-background-color: #e34ea9;" textFill="#f2f2f0">
+                     <font>
+                        <Font name="DM Sans Bold" size="18.0" />
+                     </font>
+                  </Button>
+                  <ImageView disable="true" fitHeight="30.0" fitWidth="38.0" layoutX="351.0" layoutY="366.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../images/homeIcon.png" />
+                     </image>
+                  </ImageView>
+                  <TableView layoutX="13.0" layoutY="30.0" prefHeight="330.0" prefWidth="415.0" style="-fx-background-radius: 10; -fx-background-color: #f2f2f0; -fx-text-fill: #282727;">
+                     <columns>
+                        <TableColumn editable="false" prefWidth="89.60006999969482" style="-fx-background-color: #e34ea9;" text="Payment ID" />
+                        <TableColumn editable="false" prefWidth="80.79998779296875" style="-fx-background-color: #e34ea9;" text="Dormer ID" />
+                        <TableColumn editable="false" prefWidth="243.99998474121094" style="-fx-background-color: #e34ea9;" text="Payment Date" />
+                     </columns>
+                  </TableView>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>
