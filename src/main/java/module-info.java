@@ -9,4 +9,6 @@ module application.dormtrackr {
 
     opens application.dormtrackr to javafx.fxml;
     exports application.dormtrackr;
+    exports application.dormtrackr.controller;
+    opens application.dormtrackr.controller to javafx.fxml;
 }

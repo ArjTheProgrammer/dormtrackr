@@ -1,6 +1,7 @@
-package application.dormtrackr;
+package application.dormtrackr.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
@@ -8,15 +9,17 @@ import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class DtPaymentController {
+public class DtDormerController implements Initializable {
 
     @FXML
     private Button homeButton;
 
-    @FXML
-    private void initialize() {
-        homeButton.setOnAction(event -> loadScene("dashboard.fxml"));
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        homeButton.setOnAction(event -> loadScene("/application/dormtrackr/dashboard.fxml"));
     }
 
     private void loadScene(String fxmlFile) {
