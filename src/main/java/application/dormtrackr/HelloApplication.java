@@ -1,5 +1,6 @@
 package application.dormtrackr;
 
+import application.dormtrackr.util.DatabaseConnection;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +18,13 @@ public class HelloApplication extends Application {
         stage.setTitle("DormTrackr");
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void stop() {
+        // Close the HikariCP connection pool
+        DatabaseConnection.closePool();
+        System.out.println("Application stopped and connection pool closed.");
     }
 
     public static void main(String[] args) {

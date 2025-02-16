@@ -14,9 +14,9 @@ public class DatabaseConnection {
         HikariConfig config = new HikariConfig();
 
         // Azure SQL Server connection settings
-        config.setJdbcUrl("jdbc:sqlserver://property-database.database.windows.net:1433;database=PropertyManagementSystem");
-        config.setUsername("rjsilagan@property-database");  // Use environment variable
-        config.setPassword("Dormtrackr888");  // Use environment variable
+        config.setJdbcUrl(System.getenv("DB_URL"));
+        config.setUsername(System.getenv("DB_USERNAME"));  // Use environment variable
+        config.setPassword(System.getenv("DB_PASSWORD"));  // Use environment variable
         config.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
         // Optimized for Azure SQL Serverless Free Tier
