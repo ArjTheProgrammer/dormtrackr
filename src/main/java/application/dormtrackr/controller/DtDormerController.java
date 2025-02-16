@@ -7,9 +7,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
@@ -47,7 +45,20 @@ public class DtDormerController implements Initializable {
     @FXML
     private Button homeButton;
 
+    @FXML
+    private TextField inputEmail;
+
+    @FXML
+    private TextField inputFirstName;
+
+    @FXML
+    private TextField inputLastName;
+
+    @FXML
+    private TextField inputNumber;
+
     private DormerDAO dormerDAO;
+    private int index;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -79,6 +90,21 @@ public class DtDormerController implements Initializable {
         dormerEmail.setCellValueFactory(f -> f.getValue().emailProperty());
         dormerRoomId.setCellValueFactory(f -> new ReadOnlyObjectWrapper<>(f.getValue().getRoomId()));
 
+        dormerTable.setRowFactory( tv -> {
+            TableRow<Dormer> myRow = new TableRow<>();
+            myRow.setOnMouseClicked (event ->
+            {
+                if (event.getClickCount() == 1 && (!myRow.isEmpty()))
+                {
+                    index = dormerTable.getSelectionModel().getSelectedIndex();
 
+                    inputFirstName.setText(dormerTable.getItems().get(index).getFirstName());
+                    inputLastName.setText(dormerTable.getItems().get(index).getLastName());
+                    inputNumber.setText(dormerTable.getItems().get(index).getNumber());
+                    inputEmail.setText(dormerTable.getItems().get(index).getEmail());
+                }
+            });
+            return myRow;
+        });
     }
 }

@@ -56,21 +56,21 @@
                <children>
                   <Pane layoutX="28.0" layoutY="8.0" prefHeight="330.0" prefWidth="400.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 10;">
                      <children>
-                        <TextField layoutX="160.0" layoutY="27.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
+                        <TextField fx:id="inputFirstName" layoutX="160.0" layoutY="27.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="15.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="160.0" layoutY="99.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
+                        <TextField fx:id="inputLastName" layoutX="160.0" layoutY="99.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="15.0" />
                            </font></TextField>
-                        <TextField layoutX="160.0" layoutY="177.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
+                        <TextField fx:id="inputNumber" layoutX="160.0" layoutY="177.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="15.0" />
                            </font>
                         </TextField>
-                        <TextField layoutX="160.0" layoutY="252.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
+                        <TextField fx:id="inputEmail" layoutX="160.0" layoutY="252.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="15.0" />
                            </font>
