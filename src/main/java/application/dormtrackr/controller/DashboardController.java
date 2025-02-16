@@ -1,6 +1,7 @@
 package application.dormtrackr.controller;
 
 import application.dormtrackr.model.dao.DormerDAO;
+import application.dormtrackr.model.dao.RoomDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -45,6 +46,7 @@ public class DashboardController implements Initializable {
     private Label psLabel;
 
     private DormerDAO dormerDAO = new DormerDAO();
+    private RoomDAO roomDAO = new RoomDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -53,6 +55,7 @@ public class DashboardController implements Initializable {
         paymentButton.setOnAction(event -> loadScene("/application/dormtrackr/dt-payment.fxml"));
 
         tdLabel.setText(dormerDAO.getDormerCount());
+        arLabel.setText(roomDAO.getAvailableRoom());
     }
 
     private void loadScene(String fxmlFile) {
