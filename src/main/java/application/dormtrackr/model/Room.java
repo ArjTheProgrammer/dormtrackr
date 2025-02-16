@@ -1,59 +1,80 @@
 package application.dormtrackr.model;
 
-public class Room {
-    private int roomId;
-    private String roomNumber;
-    private int floorNumber;
-    private int maxCapacity;
-    private int currentOccupancy;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 
+public class Room {
+    private final SimpleIntegerProperty roomId;
+    private final SimpleStringProperty roomNumber;
+    private final SimpleIntegerProperty floorNumber;
+    private final SimpleIntegerProperty maxCapacity;
+    private final SimpleIntegerProperty currentOccupancy;
 
     public Room(int roomId, String roomNumber, int floorNumber, int maxCapacity, int currentOccupancy) {
-        this.roomId = roomId;
-        this.roomNumber = roomNumber;
-        this.floorNumber = floorNumber;
-        this.maxCapacity = maxCapacity;
-        this.currentOccupancy = currentOccupancy;
+        this.roomId = new SimpleIntegerProperty(roomId);
+        this.roomNumber = new SimpleStringProperty(roomNumber);
+        this.floorNumber = new SimpleIntegerProperty(floorNumber);
+        this.maxCapacity = new SimpleIntegerProperty(maxCapacity);
+        this.currentOccupancy = new SimpleIntegerProperty(currentOccupancy);
     }
 
     public int getRoomId() {
-        return roomId;
+        return roomId.get();
     }
 
     public void setRoomId(int roomId) {
-        this.roomId = roomId;
+        this.roomId.set(roomId);
+    }
+
+    public SimpleIntegerProperty roomIdProperty() {
+        return roomId;
     }
 
     public String getRoomNumber() {
-        return roomNumber;
+        return roomNumber.get();
     }
 
     public void setRoomNumber(String roomNumber) {
-        this.roomNumber = roomNumber;
+        this.roomNumber.set(roomNumber);
+    }
+
+    public SimpleStringProperty roomNumberProperty() {
+        return roomNumber;
     }
 
     public int getFloorNumber() {
-        return floorNumber;
+        return floorNumber.get();
     }
 
     public void setFloorNumber(int floorNumber) {
-        this.floorNumber = floorNumber;
+        this.floorNumber.set(floorNumber);
+    }
+
+    public SimpleIntegerProperty floorNumberProperty() {
+        return floorNumber;
     }
 
     public int getMaxCapacity() {
-        return maxCapacity;
+        return maxCapacity.get();
     }
 
     public void setMaxCapacity(int maxCapacity) {
-        this.maxCapacity = maxCapacity;
+        this.maxCapacity.set(maxCapacity);
+    }
+
+    public SimpleIntegerProperty maxCapacityProperty() {
+        return maxCapacity;
     }
 
     public int getCurrentOccupancy() {
-        return currentOccupancy;
+        return currentOccupancy.get();
     }
 
     public void setCurrentOccupancy(int currentOccupancy) {
-        this.currentOccupancy = currentOccupancy;
+        this.currentOccupancy.set(currentOccupancy);
     }
 
+    public SimpleIntegerProperty currentOccupancyProperty() {
+        return currentOccupancy;
+    }
 }
