@@ -9,13 +9,15 @@ public class Room {
     private final SimpleIntegerProperty floorNumber;
     private final SimpleIntegerProperty maxCapacity;
     private final SimpleIntegerProperty currentOccupancy;
+    private final String[] dormers;
 
-    public Room(int roomId, String roomNumber, int floorNumber, int maxCapacity, int currentOccupancy) {
+    public Room(int roomId, String roomNumber, int floorNumber, int maxCapacity, int currentOccupancy, String[] dormers) {
         this.roomId = new SimpleIntegerProperty(roomId);
         this.roomNumber = new SimpleStringProperty(roomNumber);
         this.floorNumber = new SimpleIntegerProperty(floorNumber);
         this.maxCapacity = new SimpleIntegerProperty(maxCapacity);
         this.currentOccupancy = new SimpleIntegerProperty(currentOccupancy);
+        this.dormers = dormers;
     }
 
     public int getRoomId() {
@@ -76,5 +78,9 @@ public class Room {
 
     public SimpleIntegerProperty currentOccupancyProperty() {
         return currentOccupancy;
+    }
+
+    public String[] getDormers() {
+        return dormers;
     }
 }

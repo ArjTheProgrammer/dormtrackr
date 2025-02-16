@@ -60,10 +60,12 @@ public class DtRoomController implements Initializable {
 
     private RoomDAO roomDAO;
     private int index;
+    private Label[] labels;
 
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         roomDAO = new RoomDAO();
+         labels = new Label[]{viewDormer1, viewDormer2, viewDormer3, viewDormer4};
         homeButton.setOnAction(event -> loadScene("/application/dormtrackr/dashboard.fxml"));
         viewRoomTable();
     }
@@ -98,6 +100,16 @@ public class DtRoomController implements Initializable {
 
                     viewRoomNum.setText(String.valueOf(roomTable.getItems().get(index).getRoomNumber()));
                     viewRoomFloor.setText(String.valueOf(roomTable.getItems().get(index).getFloorNumber()));
+
+                    String[] dormerList = roomTable.getItems().get(index).getDormers();
+
+                    for (int i = 0; i < labels.length; i++){
+                        if (i < dormerList.length){
+                            labels[i].setText(dormerList[i]);
+                        }else{
+                            labels[i].setText("");
+                        }
+                    }
                 }
             });
             return myRow;
