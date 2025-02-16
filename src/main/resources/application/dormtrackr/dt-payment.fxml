@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.dormtrackr.controller.DtPaymentController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.dormtrackr.controller.DtPaymentController">
    <children>
       <HBox prefHeight="116.0" prefWidth="900.0" style="-fx-background-color: #f2f2f0;">
          <children>
@@ -34,7 +34,7 @@
                <children>
                   <Pane layoutX="28.0" layoutY="44.0" prefHeight="252.0" prefWidth="400.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 10;">
                      <children>
-                        <TextField layoutX="160.0" layoutY="34.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
+                        <TextField fx:id="inputDormerId" layoutX="160.0" layoutY="34.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="15.0" />
                            </font>
@@ -49,7 +49,7 @@
                               <Font name="Microsoft YaHei Bold" size="23.0" />
                            </font>
                         </Text>
-                        <DatePicker editable="false" layoutX="15.0" layoutY="158.0" prefHeight="58.0" prefWidth="371.0" style="-fx-text-fill: #282727; -fx-padding: 0 10 0 10; -fx-background-color: #f2f2f0; -fx-text-style: bold;" />
+                        <DatePicker fx:id="inputDate" editable="false" layoutX="15.0" layoutY="158.0" prefHeight="58.0" prefWidth="371.0" style="-fx-text-fill: #282727; -fx-padding: 0 10 0 10; -fx-background-color: #f2f2f0; -fx-text-style: bold;" />
                      </children>
                   </Pane>
                   <Button layoutX="56.0" layoutY="357.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Add" textFill="#f2f2f0">
@@ -81,11 +81,11 @@
                         <Image url="@../../images/homeIcon.png" />
                      </image>
                   </ImageView>
-                  <TableView layoutX="13.0" layoutY="30.0" prefHeight="330.0" prefWidth="415.0" style="-fx-background-radius: 10; -fx-background-color: #f2f2f0; -fx-text-fill: #282727;">
+                  <TableView fx:id="paymentTable" layoutX="13.0" layoutY="30.0" prefHeight="330.0" prefWidth="415.0" style="-fx-background-radius: 10; -fx-background-color: #f2f2f0; -fx-text-fill: #282727;">
                      <columns>
-                        <TableColumn editable="false" prefWidth="89.60006999969482" style="-fx-background-color: #e34ea9;" text="Payment ID" />
-                        <TableColumn editable="false" prefWidth="80.79998779296875" style="-fx-background-color: #e34ea9;" text="Dormer ID" />
-                        <TableColumn editable="false" prefWidth="243.99998474121094" style="-fx-background-color: #e34ea9;" text="Payment Date" />
+                        <TableColumn fx:id="paymentId" editable="false" prefWidth="89.60006999969482" style="-fx-background-color: #e34ea9;" text="Payment ID" />
+                        <TableColumn fx:id="dormerId" editable="false" prefWidth="80.79998779296875" style="-fx-background-color: #e34ea9;" text="Dormer ID" />
+                        <TableColumn fx:id="paymentDate" editable="false" prefWidth="243.99998474121094" style="-fx-background-color: #e34ea9;" text="Payment Date" />
                      </columns>
                   </TableView>
                </children>
