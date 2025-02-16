@@ -6,6 +6,7 @@ module application.dormtrackr {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
+    requires com.zaxxer.hikari;
 
     opens application.dormtrackr to javafx.fxml;
     exports application.dormtrackr;
