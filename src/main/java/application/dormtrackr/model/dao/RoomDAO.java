@@ -1,10 +1,11 @@
 package application.dormtrackr.model.dao;
 
+import application.dormtrackr.model.Dormer;
 import application.dormtrackr.model.Room;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class RoomDAO {
+public class RoomDAO extends BaseDAO<Room> {
     public String getAvailableRoom(){
         return "28";
     }

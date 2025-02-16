@@ -4,7 +4,7 @@ import application.dormtrackr.model.Dormer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-public class DormerDAO {
+public class DormerDAO extends BaseDAO<Dormer> {
 
     public String getDormerCount(){
         return "4";

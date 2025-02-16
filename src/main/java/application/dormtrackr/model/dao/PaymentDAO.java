@@ -1,12 +1,13 @@
 package application.dormtrackr.model.dao;
 
+import application.dormtrackr.model.Dormer;
 import application.dormtrackr.model.Payment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.time.LocalDate;
 
-public class PaymentDAO {
+public class PaymentDAO extends BaseDAO<Payment> {
     public String getPaidStudents(){
         return "2/4";
     }
