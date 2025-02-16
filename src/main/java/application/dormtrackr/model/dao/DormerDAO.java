@@ -1,8 +1,8 @@
 package application.dormtrackr.model.dao;
 
 import application.dormtrackr.model.Dormer;
-
-import java.util.ArrayList;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class DormerDAO {
 
@@ -10,8 +10,8 @@ public class DormerDAO {
         return "4";
     }
 
-    public ArrayList<Dormer> getDormers(){
-        ArrayList<Dormer> dormers = new ArrayList<>();
+    public ObservableList<Dormer> getDormers(){
+        ObservableList<Dormer> dormers = FXCollections.observableArrayList();
 
         dormers.add(new Dormer(1,"John", "Doe", "1234567890", "john.doe@example.com", 101));
         dormers.add(new Dormer(2,"Jane", "Smith", "0987654321", "jane.smith@example.com", 102));

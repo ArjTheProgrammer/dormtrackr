@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="560.0" prefWidth="900.0" style="-fx-background-color: #f2f2f0;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.dormtrackr.controller.DtDormerController">
+<AnchorPane prefHeight="560.0" prefWidth="900.0" style="-fx-background-color: #f2f2f0;" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.dormtrackr.controller.DtDormerController">
    <children>
       <HBox prefHeight="111.0" prefWidth="900.0" style="-fx-background-color: #f2f2f0;">
          <children>
@@ -125,14 +125,14 @@
                         <Image url="@../../images/homeIcon.png" />
                      </image>
                   </ImageView>
-                  <TableView layoutY="7.0" prefHeight="330.0" prefWidth="415.0" style="-fx-background-radius: 10; -fx-background-color: #f2f2f0; -fx-text-fill: #282727;">
+                  <TableView fx:id="dormerTable" layoutY="7.0" prefHeight="330.0" prefWidth="415.0" style="-fx-background-radius: 10; -fx-background-color: #f2f2f0; -fx-text-fill: #282727;">
                     <columns>
-                      <TableColumn editable="false" prefWidth="67.19998168945312" style="-fx-background-color: #e34ea9;" text="Dormer ID" />
-                      <TableColumn editable="false" prefWidth="75.20001220703125" style="-fx-background-color: #e34ea9;" text="First Name" />
-                        <TableColumn editable="false" prefWidth="69.60003662109375" style="-fx-background-color: #e34ea9;" text="Last Name" />
-                        <TableColumn editable="false" prefWidth="74.39996337890625" style="-fx-background-color: #e34ea9;" text="Contact No." />
-                        <TableColumn editable="false" prefWidth="59.2001953125" style="-fx-background-color: #e34ea9;" text="Email" />
-                        <TableColumn editable="false" prefWidth="71.1998291015625" style="-fx-background-color: #e34ea9;" text="Room ID" />
+                      <TableColumn fx:id="dormerId" editable="false" prefWidth="67.19998168945312" style="-fx-background-color: #e34ea9;" text="Dormer ID" />
+                      <TableColumn fx:id="dormerFirstName" editable="false" prefWidth="75.20001220703125" style="-fx-background-color: #e34ea9;" text="First Name" />
+                        <TableColumn fx:id="dormerLastName" editable="false" prefWidth="69.60003662109375" style="-fx-background-color: #e34ea9;" text="Last Name" />
+                        <TableColumn fx:id="dormerNumber" editable="false" prefWidth="74.39996337890625" style="-fx-background-color: #e34ea9;" text="Contact No." />
+                        <TableColumn fx:id="dormerEmail" editable="false" prefWidth="59.2001953125" style="-fx-background-color: #e34ea9;" text="Email" />
+                        <TableColumn fx:id="dormerRoomId" editable="false" prefWidth="71.1998291015625" style="-fx-background-color: #e34ea9;" text="Room ID" />
                     </columns>
                   </TableView>
                </children>
