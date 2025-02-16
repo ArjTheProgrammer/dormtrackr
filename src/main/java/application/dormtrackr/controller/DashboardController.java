@@ -1,6 +1,7 @@
 package application.dormtrackr.controller;
 
 import application.dormtrackr.model.dao.DormerDAO;
+import application.dormtrackr.model.dao.PaymentDAO;
 import application.dormtrackr.model.dao.RoomDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -47,6 +48,7 @@ public class DashboardController implements Initializable {
 
     private DormerDAO dormerDAO = new DormerDAO();
     private RoomDAO roomDAO = new RoomDAO();
+    private PaymentDAO paymentDAO = new PaymentDAO();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -56,6 +58,7 @@ public class DashboardController implements Initializable {
 
         tdLabel.setText(dormerDAO.getDormerCount());
         arLabel.setText(roomDAO.getAvailableRoom());
+        psLabel.setText(paymentDAO.getPaidStudents());
     }
 
     private void loadScene(String fxmlFile) {
