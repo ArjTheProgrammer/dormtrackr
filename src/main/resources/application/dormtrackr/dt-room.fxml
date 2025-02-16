@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.dormtrackr.controller.DtRoomController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.dormtrackr.controller.DtRoomController">
    <children>
       <HBox prefHeight="111.0" prefWidth="900.0" style="-fx-background-color: #f2f2f0;">
          <children>
@@ -68,32 +68,32 @@
                               <Font name="Microsoft YaHei Bold" size="23.0" />
                            </font>
                         </Text>
-                        <Label layoutX="14.0" layoutY="196.0" prefHeight="35.0" prefWidth="366.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
+                        <Label fx:id="viewDormer1" layoutX="14.0" layoutY="196.0" prefHeight="35.0" prefWidth="366.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="14.0" layoutY="344.0" prefHeight="35.0" prefWidth="366.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
+                        <Label fx:id="viewDormer4" layoutX="14.0" layoutY="344.0" prefHeight="35.0" prefWidth="366.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="14.0" layoutY="294.0" prefHeight="35.0" prefWidth="366.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
+                        <Label fx:id="viewDormer3" layoutX="14.0" layoutY="294.0" prefHeight="35.0" prefWidth="366.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="14.0" layoutY="245.0" prefHeight="35.0" prefWidth="366.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
+                        <Label fx:id="viewDormer2" layoutX="14.0" layoutY="245.0" prefHeight="35.0" prefWidth="366.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="14.0" />
                            </font>
                         </Label>
-                        <Label layoutX="160.0" layoutY="26.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
+                        <Label fx:id="viewRoomNum" layoutX="160.0" layoutY="26.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="15.0" />
                            </font>
                         </Label>
-                        <Label layoutX="160.0" layoutY="84.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
+                        <Label fx:id="viewRoomFloor" layoutX="160.0" layoutY="84.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-background-radius: 5; -fx-padding: 0 10 0 10;" textFill="#282727">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="15.0" />
                            </font>
@@ -114,13 +114,13 @@
                         <Image url="@../../images/homeIcon.png" />
                      </image>
                   </ImageView>
-                  <TableView layoutX="11.0" layoutY="7.0" prefHeight="330.0" prefWidth="415.0" style="-fx-background-radius: 10; -fx-background-color: #f2f2f0; -fx-text-fill: #282727;">
+                  <TableView fx:id="roomTable" layoutX="11.0" layoutY="7.0" prefHeight="330.0" prefWidth="415.0" style="-fx-background-radius: 10; -fx-background-color: #f2f2f0; -fx-text-fill: #282727;">
                      <columns>
-                        <TableColumn editable="false" prefWidth="67.19998168945312" style="-fx-background-color: #e34ea9;" text="Room ID" />
-                        <TableColumn editable="false" prefWidth="75.20001220703125" style="-fx-background-color: #e34ea9;" text="Room No." />
-                        <TableColumn editable="false" prefWidth="69.60003662109375" style="-fx-background-color: #e34ea9;" text="Floor No." />
-                        <TableColumn editable="false" prefWidth="83.99993896484375" style="-fx-background-color: #e34ea9;" text="Max Capacity" />
-                        <TableColumn editable="false" prefWidth="116.800048828125" style="-fx-background-color: #e34ea9;" text="Current Occupancy" />
+                        <TableColumn fx:id="roomId" editable="false" prefWidth="67.19998168945312" style="-fx-background-color: #e34ea9;" text="Room ID" />
+                        <TableColumn fx:id="roomNum" editable="false" prefWidth="75.20001220703125" style="-fx-background-color: #e34ea9;" text="Room No." />
+                        <TableColumn fx:id="roomFloor" editable="false" prefWidth="69.60003662109375" style="-fx-background-color: #e34ea9;" text="Floor No." />
+                        <TableColumn fx:id="roomMaxCapacity" editable="false" prefWidth="83.99993896484375" style="-fx-background-color: #e34ea9;" text="Max Capacity" />
+                        <TableColumn fx:id="roomOccupancy" editable="false" prefWidth="116.800048828125" style="-fx-background-color: #e34ea9;" text="Current Occupancy" />
                      </columns>
                   </TableView>
                </children>

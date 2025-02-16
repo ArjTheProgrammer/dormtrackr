@@ -81,7 +81,7 @@ public class DtDormerController implements Initializable {
 
     private void viewDormerTable(){
         ObservableList<Dormer> dormers = dormerDAO.getDormers();
-        System.out.println("Number of dormers: " + dormers.size());
+        System.out.println("Number of dormers:   " + dormers.size());
         dormerTable.setItems(dormers);
         dormerId.setCellValueFactory(f -> new ReadOnlyObjectWrapper<>(f.getValue().getDormerId()));
         dormerFirstName.setCellValueFactory(f -> f.getValue().firstNameProperty());
