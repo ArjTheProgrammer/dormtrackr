@@ -11,6 +11,7 @@ import java.sql.*;
 public class DormerDAO extends BaseDAO<Dormer> {
 
     private static final String GET_ALL_DORMERS = "SELECT * FROM Dormer";
+    private static final String GET_FILTERED_DORMERS = "SELECT * FROM Dormer WHERE first_name LIKE ? OR last_name LIKE ?";
     private static final String COUNT_ROWS = "SELECT COUNT(*) AS total FROM Dormer";
     private static final String INSERT_DORMER =
             "INSERT INTO Dormer (first_name, last_name, contact_number, email, room_id) VALUES (?, ?, ?, ?, ?)";
@@ -245,14 +246,23 @@ public class DormerDAO extends BaseDAO<Dormer> {
         return "" + total;
     }
 
-    public ObservableList<Dormer> getDormers(){
+    public ObservableList<Dormer> getDormers(String filter){
         ObservableList<Dormer> dormers = FXCollections.observableArrayList();
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(GET_ALL_DORMERS);
-             ResultSet rs = pstmt.executeQuery()) {
+        String query = filter == null || filter.isEmpty() ? GET_ALL_DORMERS : GET_FILTERED_DORMERS;
 
-            while (rs.next()) {
-                dormers.add(mapResultSetToDormer(rs));
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            if (filter != null && !filter.isEmpty()) {
+                String searchPattern = "%" + filter + "%";
+                pstmt.setString(1, searchPattern);
+                pstmt.setString(2, searchPattern);
+            }
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    dormers.add(mapResultSetToDormer(rs));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();

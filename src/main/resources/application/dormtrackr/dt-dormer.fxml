@@ -29,12 +29,12 @@
                <children>
                   <Pane prefHeight="111.0" prefWidth="450.0">
                      <children>
-                        <TextField layoutX="87.0" layoutY="56.0" prefHeight="42.0" prefWidth="342.0" promptText="Enter Dormer Name..." style="-fx-background-radius: 30; -fx-background-color: #e34ea9; -fx-padding: 0 90 0 60; -fx-text-fill: #282727;">
+                        <TextField fx:id="inputSearchDormer" layoutX="87.0" layoutY="56.0" prefHeight="42.0" prefWidth="342.0" promptText="Enter Dormer Name..." style="-fx-background-radius: 30; -fx-background-color: #e34ea9; -fx-padding: 0 90 0 60; -fx-text-fill: #282727;">
                            <font>
                               <Font name="Microsoft YaHei UI" size="15.0" />
                            </font>
                         </TextField>
-                        <Button layoutX="354.0" layoutY="64.0" mnemonicParsing="false" style="-fx-background-color: #f2f2f0;" text="Search" textFill="#282727">
+                        <Button layoutX="354.0" layoutY="64.0" mnemonicParsing="false" onAction="#searchDormer" style="-fx-background-color: #f2f2f0;" text="Search" textFill="#282727">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="13.0" />
                            </font>

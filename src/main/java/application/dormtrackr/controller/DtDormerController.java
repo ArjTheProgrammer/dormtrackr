@@ -59,6 +59,9 @@ public class DtDormerController implements Initializable {
     @FXML
     private TextField inputRoomId;
 
+    @FXML
+    private TextField inputSearchDormer;
+
     private DormerDAO dormerDAO;
     private int index;
     private int id;
@@ -93,7 +96,7 @@ public class DtDormerController implements Initializable {
     }
 
     private void viewDormerTable(){
-        ObservableList<Dormer> dormers = dormerDAO.getDormers();
+        ObservableList<Dormer> dormers = dormerDAO.getDormers(inputSearchDormer.getText());
         System.out.println("Number of dormers:   " + dormers.size());
         dormerTable.setItems(dormers);
         dormerId.setCellValueFactory(f -> new ReadOnlyObjectWrapper<>(f.getValue().getDormerId()));
@@ -163,6 +166,11 @@ public class DtDormerController implements Initializable {
                 }
             }
         });
+    }
+
+    @FXML
+    void searchDormer(ActionEvent event) {
+        viewDormerTable();
     }
 
     @FXML
