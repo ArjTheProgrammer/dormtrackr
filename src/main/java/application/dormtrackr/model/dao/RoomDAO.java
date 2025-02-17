@@ -5,43 +5,70 @@ import application.dormtrackr.model.Room;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class RoomDAO extends BaseDAO<Room> {
+    private static final String GET_ROOMS =
+            "SELECT " +
+                    "    r.room_id, " +
+                    "    r.room_number, " +
+                    "    r.floor_number, " +
+                    "    r.max_capacity, " +
+                    "    r.current_occupancy, " +
+                    "    STRING_AGG(d.first_name + ' ' + d.last_name, ', ') AS dormers " +
+                    "FROM " +
+                    "    Room r " +
+                    "LEFT JOIN " +
+                    "    Dormer d ON r.room_id = d.room_id " +
+                    "GROUP BY " +
+                    "    r.room_id, r.room_number, r.floor_number, r.max_capacity, r.current_occupancy;";
+    private static final String GET_AVAILABLE_ROOM = "SELECT COUNT(*) FROM Room WHERE current_occupancy != max_capacity";
+
     public String getAvailableRoom(){
-        return "28";
+            int total = 0;
+
+            try (Connection conn = getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(GET_AVAILABLE_ROOM);
+                 ResultSet rs = pstmt.executeQuery()) {
+
+                if (rs.next()) {
+                    total = rs.getInt(1);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+
+            return "" + total;
     }
 
     public ObservableList<Room> getRooms(){
-        return FXCollections.observableArrayList(
-                new Room(1, "101", 1, 4, 2, new String[]{"Dormer1", "Dormer2"}),
-                new Room(2, "102", 1, 4, 0, new String[]{}),
-                new Room(3, "103", 1, 4, 0, new String[]{}),
-                new Room(4, "104", 1, 4, 0, new String[]{}),
-                new Room(5, "105", 1, 4, 0, new String[]{}),
-                new Room(6, "106", 1, 4, 0, new String[]{}),
-                new Room(7, "201", 2, 4, 0, new String[]{}),
-                new Room(8, "202", 2, 4, 0, new String[]{}),
-                new Room(9, "203", 2, 4, 0, new String[]{}),
-                new Room(10, "204", 2, 4, 0, new String[]{}),
-                new Room(11, "205", 2, 4, 0, new String[]{}),
-                new Room(12, "206", 2, 4, 0, new String[]{}),
-                new Room(13, "301", 3, 4, 0, new String[]{}),
-                new Room(14, "302", 3, 4, 0, new String[]{}),
-                new Room(15, "303", 3, 4, 0, new String[]{}),
-                new Room(16, "304", 3, 4, 0, new String[]{}),
-                new Room(17, "305", 3, 4, 0, new String[]{}),
-                new Room(18, "306", 3, 4, 0, new String[]{}),
-                new Room(19, "401", 4, 4, 0, new String[]{}),
-                new Room(20, "402", 4, 4, 0, new String[]{}),
-                new Room(21, "403", 4, 4, 0, new String[]{}),
-                new Room(22, "404", 4, 4, 0, new String[]{}),
-                new Room(23, "405", 4, 4, 0, new String[]{}),
-                new Room(24, "406", 4, 4, 0, new String[]{}),
-                new Room(25, "501", 5, 4, 0, new String[]{}),
-                new Room(26, "502", 5, 4, 0, new String[]{}),
-                new Room(27, "503", 5, 4, 0, new String[]{}),
-                new Room(28, "504", 5, 4, 0, new String[]{}),
-                new Room(29, "505", 5, 4, 0, new String[]{}),
-                new Room(30, "506", 5, 4, 0, new String[]{})
-        );
+        ObservableList<Room> dormers = FXCollections.observableArrayList();
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(GET_ROOMS);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                dormers.add(mapResultSetToRoom(rs));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dormers;
+    }
+
+    private Room mapResultSetToRoom(ResultSet resultSet) throws SQLException {
+        int roomId = resultSet.getInt("room_id");
+        String roomNumber = resultSet.getString("room_number");
+        int floorNumber = resultSet.getInt("floor_number");
+        int maxCapacity = resultSet.getInt("max_capacity");
+        int currentOccupancy = resultSet.getInt("current_occupancy");
+        String dormersStr = resultSet.getString("dormers");
+
+        String[] dormers = (dormersStr != null) ? dormersStr.split(", ") : new String[]{};
+
+        return new Room(roomId, roomNumber, floorNumber, maxCapacity, currentOccupancy, dormers);
     }
 }
