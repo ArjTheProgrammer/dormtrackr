@@ -84,8 +84,8 @@
                   <TableView fx:id="paymentTable" layoutX="13.0" layoutY="30.0" prefHeight="330.0" prefWidth="415.0" style="-fx-background-radius: 10; -fx-background-color: #f2f2f0; -fx-text-fill: #282727;">
                      <columns>
                         <TableColumn fx:id="paymentId" editable="false" prefWidth="89.60006999969482" style="-fx-background-color: #e34ea9;" text="Payment ID" />
-                        <TableColumn fx:id="dormerId" editable="false" prefWidth="80.79998779296875" style="-fx-background-color: #e34ea9;" text="Dormer ID" />
-                        <TableColumn fx:id="paymentDate" editable="false" prefWidth="243.99998474121094" style="-fx-background-color: #e34ea9;" text="Payment Date" />
+                        <TableColumn fx:id="dormerName" editable="false" prefWidth="165.6000213623047" style="-fx-background-color: #e34ea9;" text="Dormer Name" />
+                        <TableColumn fx:id="paymentDate" editable="false" prefWidth="159.20001220703125" style="-fx-background-color: #e34ea9;" text="Payment Date" />
                      </columns>
                   </TableView>
                </children>

@@ -7,7 +7,13 @@ import javafx.collections.ObservableList;
 import java.sql.*;
 
 public class PaymentDAO extends BaseDAO<Payment> {
-    private static final String GET_ALL_PAYMENTS = "SELECT * FROM Payment";
+    private static final String GET_ALL_PAYMENTS = "SELECT \n" +
+            "    p.payment_id, \n" +
+            "    p.dormer_id, \n" +
+            "    CONCAT(d.first_name, ' ', d.last_name) AS dormer_name, \n" +
+            "    p.payment_date\n" +
+            "FROM Payment p\n" +
+            "JOIN Dormer d ON p.dormer_id = d.dormer_id;";
     private static final String GET_RATIO = "WITH PaidThisMonth AS (SELECT dormer_id FROM Payment WHERE YEAR(payment_date) = YEAR(GETDATE()) AND MONTH(payment_date) = MONTH(GETDATE())) SELECT COUNT(*) AS total_dormers, (SELECT COUNT(*) FROM PaidThisMonth) AS paid_dormers FROM Dormer";
 
     public String getPaidStudents(){
@@ -46,6 +52,7 @@ public class PaymentDAO extends BaseDAO<Payment> {
         return new Payment(
                 rs.getInt("payment_id"),
                 rs.getInt("dormer_id"),
+                rs.getString("dormer_name"),
                 rs.getDate("payment_date").toLocalDate());
     }
 }

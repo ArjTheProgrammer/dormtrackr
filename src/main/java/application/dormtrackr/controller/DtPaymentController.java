@@ -21,7 +21,7 @@ public class DtPaymentController implements Initializable {
 
 
     @FXML
-    private TableColumn<Payment, Integer> dormerId;
+    private TableColumn<Payment, String> dormerName;
 
     @FXML
     private Button homeButton;
@@ -69,7 +69,7 @@ public class DtPaymentController implements Initializable {
         paymentTable.setItems(payments);
 
         paymentId.setCellValueFactory(f -> new ReadOnlyObjectWrapper<>(f.getValue().getPaymentId()));
-        dormerId.setCellValueFactory(f -> new ReadOnlyObjectWrapper<>(f.getValue().getDormerId()));
+        dormerName.setCellValueFactory(f -> f.getValue().dormerNameProperty());
         paymentDate.setCellValueFactory(f -> f.getValue().paymentDateProperty());
 
         paymentTable.setRowFactory(tv -> {
