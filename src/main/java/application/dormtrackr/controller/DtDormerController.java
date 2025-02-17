@@ -61,6 +61,7 @@ public class DtDormerController implements Initializable {
 
     private DormerDAO dormerDAO;
     private int index;
+    private int id;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -99,11 +100,12 @@ public class DtDormerController implements Initializable {
                 if (event.getClickCount() == 1 && (!myRow.isEmpty()))
                 {
                     index = dormerTable.getSelectionModel().getSelectedIndex();
-
+                    id = dormerTable.getItems().get(index).getDormerId();
                     inputFirstName.setText(dormerTable.getItems().get(index).getFirstName());
                     inputLastName.setText(dormerTable.getItems().get(index).getLastName());
                     inputNumber.setText(dormerTable.getItems().get(index).getNumber());
                     inputEmail.setText(dormerTable.getItems().get(index).getEmail());
+                    inputRoomId.setText("" + dormerTable.getItems().get(index).getRoomId());
                 }
             });
             return myRow;
@@ -127,6 +129,27 @@ public class DtDormerController implements Initializable {
         Dormer dormer = new Dormer(firstName, lastName, number, email, roomId);
 
         if (dormerDAO.addDormer(dormer)){
+            viewDormerTable();
+            inputFirstName.setText("");
+            inputLastName.setText("");
+            inputNumber.setText("");
+            inputEmail.setText("");
+            inputRoomId.setText("");
+        }
+    }
+
+    @FXML
+    void updateDormer(ActionEvent event) {
+        String firstName = inputFirstName.getText();
+        String lastName = inputLastName.getText();
+        String number = inputNumber.getText();
+        String email = inputEmail.getText();
+        int roomId = Integer.parseInt(inputRoomId.getText());
+
+        System.out.println(firstName + lastName + number + email + roomId);
+        Dormer dormer = new Dormer(id, firstName, lastName, number, email, roomId);
+
+        if (dormerDAO.updateDormer(dormer)){
             viewDormerTable();
             inputFirstName.setText("");
             inputLastName.setText("");

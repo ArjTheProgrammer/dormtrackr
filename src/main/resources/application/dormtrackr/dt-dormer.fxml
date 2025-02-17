@@ -111,7 +111,7 @@
                         <Font name="Microsoft YaHei Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="175.0" layoutY="357.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Update" textFill="#f2f2f0">
+                  <Button layoutX="175.0" layoutY="357.0" mnemonicParsing="false" onAction="#updateDormer" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Update" textFill="#f2f2f0">
                      <font>
                         <Font name="Microsoft YaHei Bold" size="18.0" />
                      </font>
