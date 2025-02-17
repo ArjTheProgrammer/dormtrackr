@@ -63,9 +63,19 @@ public class DtDormerController implements Initializable {
     private int index;
     private int id;
 
+    String firstName;
+    String lastName;
+    String number;
+    String email;
+    int roomId;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dormerDAO = new DormerDAO();
+        firstName = inputFirstName.getText();
+        lastName = inputLastName.getText();
+        number = inputNumber.getText();
+        email = inputEmail.getText();
         homeButton.setOnAction(event -> loadScene("/application/dormtrackr/dashboard.fxml"));
         viewDormerTable();
     }
@@ -119,11 +129,6 @@ public class DtDormerController implements Initializable {
             alert.show();
             return;
         }
-        String firstName = inputFirstName.getText();
-        String lastName = inputLastName.getText();
-        String number = inputNumber.getText();
-        String email = inputEmail.getText();
-        int roomId = Integer.parseInt(inputRoomId.getText());
 
         System.out.println(firstName + lastName + number + email + roomId);
         Dormer dormer = new Dormer(firstName, lastName, number, email, roomId);
@@ -139,12 +144,29 @@ public class DtDormerController implements Initializable {
     }
 
     @FXML
+    void deleteDormer(ActionEvent event) {
+        Alert confirmationAlert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this dormer?", ButtonType.YES, ButtonType.NO);
+        confirmationAlert.setTitle("Confirm Deletion");
+        confirmationAlert.setHeaderText(null);
+
+        confirmationAlert.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.YES) {
+                if (dormerDAO.deleteDormer(id)) {
+                    Alert successAlert = new Alert(Alert.AlertType.INFORMATION, "Dormer successfully deleted!", ButtonType.OK);
+                    successAlert.show();
+                    viewDormerTable();
+                    inputFirstName.setText("");
+                    inputLastName.setText("");
+                    inputNumber.setText("");
+                    inputEmail.setText("");
+                    inputRoomId.setText("");
+                }
+            }
+        });
+    }
+
+    @FXML
     void updateDormer(ActionEvent event) {
-        String firstName = inputFirstName.getText();
-        String lastName = inputLastName.getText();
-        String number = inputNumber.getText();
-        String email = inputEmail.getText();
-        int roomId = Integer.parseInt(inputRoomId.getText());
 
         System.out.println(firstName + lastName + number + email + roomId);
         Dormer dormer = new Dormer(id, firstName, lastName, number, email, roomId);

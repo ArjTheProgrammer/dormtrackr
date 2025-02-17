@@ -116,7 +116,7 @@
                         <Font name="Microsoft YaHei Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="295.0" layoutY="357.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Delete" textFill="#f2f2f0">
+                  <Button layoutX="295.0" layoutY="357.0" mnemonicParsing="false" onAction="#deleteDormer" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Delete" textFill="#f2f2f0">
                      <font>
                         <Font name="Microsoft YaHei Bold" size="18.0" />
                      </font>

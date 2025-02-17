@@ -30,6 +30,9 @@ public class DormerDAO extends BaseDAO<Dormer> {
     private static final String GET_ROOM_OCCUPANCY =
             "SELECT current_occupancy, max_capacity FROM Room WHERE room_id = ?";
 
+    private static final String GET_CURRENT_ROOM =
+            "SELECT room_id FROM Dormer WHERE dormer_id = ?";
+
 
 
     public boolean addDormer(Dormer dormer) {
@@ -94,13 +97,53 @@ public class DormerDAO extends BaseDAO<Dormer> {
         }
     }
 
+    public boolean deleteDormer(int dormerId) {
+        try (Connection conn = getConnection();
+             PreparedStatement getRoomStmt = conn.prepareStatement(GET_CURRENT_ROOM);
+             PreparedStatement deleteDormerStmt = conn.prepareStatement(DELETE_DORMER);
+             PreparedStatement decreaseOccupancyStmt = conn.prepareStatement(DECREASE_OCCUPANCY)) {
+
+            conn.setAutoCommit(false);
+
+            // Get the dormer's current room
+            getRoomStmt.setInt(1, dormerId);
+            int roomId = -1;
+            try (ResultSet rs = getRoomStmt.executeQuery()) {
+                if (rs.next()) {
+                    roomId = rs.getInt("room_id");
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "Dormer not found", ButtonType.OK);
+                    alert.show();
+                    return false;
+                }
+            }
+
+            // Delete dormer
+            deleteDormerStmt.setInt(1, dormerId);
+            deleteDormerStmt.executeUpdate();
+
+            // Decrease room occupancy
+            decreaseOccupancyStmt.setInt(1, roomId);
+            decreaseOccupancyStmt.executeUpdate();
+
+            conn.commit();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Dormer Deleted!", ButtonType.OK);
+            alert.show();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
     public boolean updateDormer(Dormer dormer) {
         try (Connection conn = getConnection();
              PreparedStatement checkRoomStmt = conn.prepareStatement(GET_ROOM_OCCUPANCY);
              PreparedStatement updateDormerStmt = conn.prepareStatement(UPDATE_DORMER);
              PreparedStatement decreaseOldRoomStmt = conn.prepareStatement(DECREASE_OCCUPANCY);
              PreparedStatement increaseNewRoomStmt = conn.prepareStatement(INCREASE_OCCUPANCY);
-             PreparedStatement getOldRoomStmt = conn.prepareStatement("SELECT room_id FROM Dormer WHERE dormer_id = ?")) {
+             PreparedStatement getOldRoomStmt = conn.prepareStatement(GET_CURRENT_ROOM)) {
 
             conn.setAutoCommit(false);
 
