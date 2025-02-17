@@ -5,6 +5,7 @@ import application.dormtrackr.model.Room;
 import application.dormtrackr.model.dao.RoomDAO;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -21,6 +22,9 @@ public class DtRoomController implements Initializable {
 
     @FXML
     private Button homeButton;
+
+    @FXML
+    private TextField inputRoomNumber;
 
     @FXML
     private TableColumn<Room, Integer> roomFloor;
@@ -83,7 +87,7 @@ public class DtRoomController implements Initializable {
     }
 
     private void viewRoomTable() {
-        ObservableList<Room> rooms = roomDAO.getRooms();
+        ObservableList<Room> rooms = roomDAO.getRooms(inputRoomNumber.getText());
         System.out.println("Number of rooms: " + rooms.size());
         roomTable.setItems(rooms);
         roomId.setCellValueFactory(f -> new ReadOnlyObjectWrapper<>(f.getValue().getRoomId()));
@@ -114,5 +118,10 @@ public class DtRoomController implements Initializable {
             });
             return myRow;
         });
+    }
+
+    @FXML
+    void searchRoom(ActionEvent event) {
+        viewRoomTable();
     }
 }

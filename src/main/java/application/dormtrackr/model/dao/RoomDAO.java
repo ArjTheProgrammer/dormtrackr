@@ -25,6 +25,24 @@ public class RoomDAO extends BaseDAO<Room> {
                     "    Dormer d ON r.room_id = d.room_id " +
                     "GROUP BY " +
                     "    r.room_id, r.room_number, r.floor_number, r.max_capacity, r.current_occupancy;";
+
+    private static final String GET_FILTERED_ROOMS =
+            "SELECT " +
+                    "    r.room_id, " +
+                    "    r.room_number, " +
+                    "    r.floor_number, " +
+                    "    r.max_capacity, " +
+                    "    r.current_occupancy, " +
+                    "    STRING_AGG(d.first_name + ' ' + d.last_name, ', ') AS dormers " +
+                    "FROM " +
+                    "    Room r " +
+                    "LEFT JOIN " +
+                    "    Dormer d ON r.room_id = d.room_id " +
+                    "WHERE " +
+                    "    r.room_number LIKE ? " +
+                    "GROUP BY " +
+                    "    r.room_id, r.room_number, r.floor_number, r.max_capacity, r.current_occupancy;";
+
     private static final String GET_AVAILABLE_ROOM = "SELECT COUNT(*) FROM Room WHERE current_occupancy != max_capacity";
 
     public String getAvailableRoom(){
@@ -44,19 +62,27 @@ public class RoomDAO extends BaseDAO<Room> {
             return "" + total;
     }
 
-    public ObservableList<Room> getRooms(){
-        ObservableList<Room> dormers = FXCollections.observableArrayList();
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(GET_ROOMS);
-             ResultSet rs = pstmt.executeQuery()) {
+    public ObservableList<Room> getRooms(String filter){
+        ObservableList<Room> rooms = FXCollections.observableArrayList();
+        String query = (filter == null || filter.isEmpty()) ? GET_ROOMS : GET_FILTERED_ROOMS;
 
-            while (rs.next()) {
-                dormers.add(mapResultSetToRoom(rs));
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            if (filter != null && !filter.isEmpty()) {
+                String searchPattern = "%" + filter + "%";
+                pstmt.setString(1, searchPattern);
+            }
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    rooms.add(mapResultSetToRoom(rs));
+                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return dormers;
+        return rooms;
     }
 
     private Room mapResultSetToRoom(ResultSet resultSet) throws SQLException {
