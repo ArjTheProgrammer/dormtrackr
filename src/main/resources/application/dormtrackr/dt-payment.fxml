@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -24,6 +27,15 @@
                         <Image url="@../../images/payment_text.png" />
                      </image>
                   </ImageView>
+               </children>
+            </Pane>
+            <Pane prefHeight="116.0" prefWidth="450.0">
+               <children>
+                  <Spinner fx:id="monthSpinner" layoutX="20.0" layoutY="77.0" />
+                  <Spinner fx:id="yearSpinner" layoutX="186.0" layoutY="77.0" />
+                  <Button layoutX="363.0" layoutY="77.0" mnemonicParsing="false" onAction="#searchPayment" text="Search" />
+                  <Label layoutX="80.0" layoutY="50.0" text="month" />
+                  <Label layoutX="249.0" layoutY="50.0" text="year" />
                </children>
             </Pane>
          </children>
@@ -88,6 +100,7 @@
                         <TableColumn fx:id="paymentDate" editable="false" prefWidth="159.20001220703125" style="-fx-background-color: #e34ea9;" text="Payment Date" />
                      </columns>
                   </TableView>
+                  <ComboBox fx:id="statusComboBox" layoutX="13.0" layoutY="1.0" prefWidth="150.0" />
                </children>
             </Pane>
          </children>

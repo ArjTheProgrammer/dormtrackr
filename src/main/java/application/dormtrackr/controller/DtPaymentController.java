@@ -3,7 +3,9 @@ package application.dormtrackr.controller;
 import application.dormtrackr.model.Payment;
 import application.dormtrackr.model.dao.PaymentDAO;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -33,6 +35,9 @@ public class DtPaymentController implements Initializable {
     private TextField inputDormerId;
 
     @FXML
+    private Spinner<Integer> monthSpinner;
+
+    @FXML
     private TableColumn<Payment, LocalDate> paymentDate;
 
     @FXML
@@ -42,11 +47,37 @@ public class DtPaymentController implements Initializable {
     private TableView<Payment> paymentTable;
 
     private PaymentDAO paymentDAO;
+
+
+    @FXML
+    private ComboBox<String> statusComboBox;
+
+    @FXML
+    private Spinner<Integer> yearSpinner;
+
     private int index;
+    LocalDate currentDate = LocalDate.now();
+    int currentMonth;
+    int currentYear;
+    private int id;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         paymentDAO = new PaymentDAO();
+        currentMonth = currentDate.getMonthValue();
+        currentYear = currentDate.getYear();
+
+        SpinnerValueFactory<Integer> monthValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 12, currentMonth);
+        monthSpinner.setValueFactory(monthValueFactory);
+        monthSpinner.setEditable(true);
+
+        SpinnerValueFactory<Integer> yearValueFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(2023, Integer.MAX_VALUE, currentYear);
+        yearSpinner.setValueFactory(yearValueFactory);
+        yearSpinner.setEditable(true);
+
+        statusComboBox.setItems(FXCollections.observableArrayList("Paid", "Unpaid"));
+        statusComboBox.setValue("Paid");
+
         homeButton.setOnAction(event -> loadScene("/application/dormtrackr/dashboard.fxml"));
         viewPaymentTable();
     }
@@ -64,7 +95,7 @@ public class DtPaymentController implements Initializable {
     }
 
     private void viewPaymentTable() {
-        ObservableList<Payment> payments = paymentDAO.getPayments();
+        ObservableList<Payment> payments = paymentDAO.getPayments(statusComboBox.getValue(), monthSpinner.getValue(), yearSpinner.getValue());
         System.out.println("Number of payments: " + payments.size());
         paymentTable.setItems(payments);
 
@@ -84,6 +115,11 @@ public class DtPaymentController implements Initializable {
             });
             return myRow;
         });
+    }
+
+    @FXML
+    void searchPayment(ActionEvent event) {
+        viewPaymentTable();
     }
 
 }
