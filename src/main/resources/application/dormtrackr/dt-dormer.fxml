@@ -56,47 +56,57 @@
                <children>
                   <Pane layoutX="28.0" layoutY="8.0" prefHeight="330.0" prefWidth="400.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 10;">
                      <children>
-                        <TextField fx:id="inputFirstName" layoutX="160.0" layoutY="27.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
+                        <TextField fx:id="inputFirstName" layoutX="165.0" layoutY="8.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="15.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="inputLastName" layoutX="160.0" layoutY="99.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
+                        <TextField fx:id="inputLastName" layoutX="165.0" layoutY="73.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="15.0" />
                            </font></TextField>
-                        <TextField fx:id="inputNumber" layoutX="160.0" layoutY="177.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
+                        <TextField fx:id="inputNumber" layoutX="165.0" layoutY="143.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="15.0" />
                            </font>
                         </TextField>
-                        <TextField fx:id="inputEmail" layoutX="160.0" layoutY="252.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
+                        <TextField fx:id="inputEmail" layoutX="165.0" layoutY="203.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="15.0" />
                            </font>
                         </TextField>
-                        <Text fill="#f2f2f0" layoutX="14.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" wrappingWidth="135.73674774169922">
+                        <TextField fx:id="inputRoomId" layoutX="165.0" layoutY="259.0" prefHeight="42.0" prefWidth="217.0" style="-fx-background-color: #f2f2f0; -fx-text-fill: #282727; -fx-padding: 0 10 0 10;">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="15.0" />
+                           </font>
+                        </TextField>
+                        <Text fill="#f2f2f0" layoutX="19.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" wrappingWidth="135.73674774169922">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="22.0" />
                            </font>
                         </Text>
-                        <Text fill="#f2f2f0" layoutX="14.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" wrappingWidth="135.73674774169922">
+                        <Text fill="#f2f2f0" layoutX="19.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" wrappingWidth="135.73674774169922">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="22.0" />
                            </font>
                         </Text>
-                        <Text fill="#f2f2f0" layoutX="14.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact No." wrappingWidth="135.73674774169922">
+                        <Text fill="#f2f2f0" layoutX="19.0" layoutY="172.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Contact No." wrappingWidth="135.73674774169922">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="22.0" />
                            </font>
                         </Text>
-                        <Text fill="#f2f2f0" layoutX="14.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="135.73674774169922">
+                        <Text fill="#f2f2f0" layoutX="19.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room ID" wrappingWidth="135.73674774169922">
+                           <font>
+                              <Font name="Microsoft YaHei Bold" size="22.0" />
+                           </font>
+                        </Text>
+                        <Text fill="#f2f2f0" layoutX="19.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email" wrappingWidth="135.73674774169922">
                            <font>
                               <Font name="Microsoft YaHei Bold" size="22.0" />
                            </font>
                         </Text>
                      </children></Pane>
-                  <Button layoutX="56.0" layoutY="357.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Add" textFill="#f2f2f0">
+                  <Button layoutX="56.0" layoutY="357.0" mnemonicParsing="false" onAction="#addDormer" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Add" textFill="#f2f2f0">
                      <font>
                         <Font name="Microsoft YaHei Bold" size="18.0" />
                      </font>

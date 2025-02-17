@@ -3,12 +3,11 @@ package application.dormtrackr.controller;
 import application.dormtrackr.model.Dormer;
 import application.dormtrackr.model.dao.DormerDAO;
 import javafx.beans.property.ReadOnlyObjectWrapper;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -16,7 +15,7 @@ import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DtDormerController implements Initializable {
@@ -56,6 +55,9 @@ public class DtDormerController implements Initializable {
 
     @FXML
     private TextField inputNumber;
+
+    @FXML
+    private TextField inputRoomId;
 
     private DormerDAO dormerDAO;
     private int index;
@@ -106,5 +108,31 @@ public class DtDormerController implements Initializable {
             });
             return myRow;
         });
+    }
+
+    @FXML
+    void addDormer(ActionEvent event) {
+        if (inputFirstName.getText().isEmpty() && inputLastName.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Names are blank");
+            alert.show();
+            return;
+        }
+        String firstName = inputFirstName.getText();
+        String lastName = inputLastName.getText();
+        String number = inputNumber.getText();
+        String email = inputEmail.getText();
+        int roomId = Integer.parseInt(inputRoomId.getText());
+
+        System.out.println(firstName + lastName + number + email + roomId);
+        Dormer dormer = new Dormer(firstName, lastName, number, email, roomId);
+
+        if (dormerDAO.addDormer(dormer)){
+            viewDormerTable();
+            inputFirstName.setText("");
+            inputLastName.setText("");
+            inputNumber.setText("");
+            inputEmail.setText("");
+            inputRoomId.setText("");
+        }
     }
 }

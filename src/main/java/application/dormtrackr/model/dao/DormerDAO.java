@@ -3,39 +3,97 @@ package application.dormtrackr.model.dao;
 import application.dormtrackr.model.Dormer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 
 import java.sql.*;
 
 public class DormerDAO extends BaseDAO<Dormer> {
 
     private static final String GET_ALL_DORMERS = "SELECT * FROM Dormer";
-    private static final String INSERT_DORMER = "INSERT INTO Dormer (first_name, last_name, contact_number, email, room_id) VALUES (?, ?, ?, ?, ?)";
     private static final String COUNT_ROWS = "SELECT COUNT(*) AS total FROM Dormer";
-    private static final String UPDATE_DORMER = "UPDATE Dormer SET first_name=?, last_name=?, contact_number=?, email=?, room_id=? WHERE dormer_id=?";
-    private static final String DELETE_DORMER = "DELETE FROM Dormer WHERE dormer_id=?";
+    private static final String INSERT_DORMER =
+            "INSERT INTO Dormer (first_name, last_name, contact_number, email, room_id) VALUES (?, ?, ?, ?, ?)";
+
+    private static final String UPDATE_DORMER =
+            "UPDATE Dormer SET first_name=?, last_name=?, contact_number=?, email=?, room_id=? WHERE dormer_id=?";
+
+    private static final String DELETE_DORMER =
+            "DELETE FROM Dormer WHERE dormer_id=?";
+
+    private static final String INCREASE_OCCUPANCY =
+            "UPDATE Room SET current_occupancy = current_occupancy + 1 WHERE room_id = ? AND current_occupancy < max_capacity";
+
+    private static final String DECREASE_OCCUPANCY =
+            "UPDATE Room SET current_occupancy = current_occupancy - 1 WHERE room_id = ? AND current_occupancy > 0";
+
+    private static final String GET_ROOM_OCCUPANCY =
+            "SELECT current_occupancy, max_capacity FROM Room WHERE room_id = ?";
+
 
 
     public boolean addDormer(Dormer dormer) {
         try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(INSERT_DORMER,
-                     Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement checkDormerStmt = conn.prepareStatement("SELECT COUNT(*) FROM Dormer WHERE email = ?");
+             PreparedStatement checkRoomStmt = conn.prepareStatement(GET_ROOM_OCCUPANCY);
+             PreparedStatement insertDormerStmt = conn.prepareStatement(INSERT_DORMER, Statement.RETURN_GENERATED_KEYS);
+             PreparedStatement updateRoomStmt = conn.prepareStatement(INCREASE_OCCUPANCY)) {
 
-            setDormerParameters(pstmt, dormer);
+            conn.setAutoCommit(false);
 
-            if (pstmt.executeUpdate() > 0) {
-                try (ResultSet rs = pstmt.getGeneratedKeys()) {
+            // Check if the dormer already exists
+            checkDormerStmt.setString(1, dormer.getEmail());
+            try (ResultSet rs = checkDormerStmt.executeQuery()) {
+                if (rs.next() && rs.getInt(1) > 0) {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "Dormer already exists", ButtonType.OK);
+                    alert.show();
+                    return false;
+                }
+            }
+
+            // Check if the room has space
+            checkRoomStmt.setInt(1, dormer.getRoomId());
+            try (ResultSet rs = checkRoomStmt.executeQuery()) {
+                if (rs.next()) {
+                    int currentOccupancy = rs.getInt("current_occupancy");
+                    int maxCapacity = rs.getInt("max_capacity");
+
+                    if (currentOccupancy >= maxCapacity) {
+                        Alert alert = new Alert(Alert.AlertType.WARNING, "Room full", ButtonType.OK);
+                        alert.show();
+                        return false;
+                    }
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.WARNING, "Room not found", ButtonType.OK);
+                    alert.show();
+                    return false;
+                }
+            }
+
+            // Insert Dormer
+            setDormerParameters(insertDormerStmt, dormer);
+            if (insertDormerStmt.executeUpdate() > 0) {
+                try (ResultSet rs = insertDormerStmt.getGeneratedKeys()) {
                     if (rs.next()) {
                         dormer.setDormerId(rs.getInt(1));
-                        return true;
                     }
                 }
             }
-            return false;
+
+            // Increase Room Occupancy
+            updateRoomStmt.setInt(1, dormer.getRoomId());
+            updateRoomStmt.executeUpdate();
+
+            conn.commit();
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Dormer Added!", ButtonType.OK);
+            alert.show();
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
     }
+
 
     private void setDormerParameters(PreparedStatement pstmt, Dormer dormer)
             throws SQLException {
