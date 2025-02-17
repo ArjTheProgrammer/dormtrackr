@@ -79,7 +79,7 @@ public class DtPaymentController implements Initializable {
         statusComboBox.setValue("Paid");
 
         homeButton.setOnAction(event -> loadScene("/application/dormtrackr/dashboard.fxml"));
-        viewPaymentTable();
+        viewPaymentTable(statusComboBox.getValue(), monthSpinner.getValue(), yearSpinner.getValue());
     }
 
     private void loadScene(String fxmlFile) {
@@ -94,8 +94,8 @@ public class DtPaymentController implements Initializable {
         }
     }
 
-    private void viewPaymentTable() {
-        ObservableList<Payment> payments = paymentDAO.getPayments(statusComboBox.getValue(), monthSpinner.getValue(), yearSpinner.getValue());
+    private void viewPaymentTable(String status, int month, int year) {
+        ObservableList<Payment> payments = paymentDAO.getPayments(status, month, year);
         System.out.println("Number of payments: " + payments.size());
         paymentTable.setItems(payments);
 
@@ -109,6 +109,7 @@ public class DtPaymentController implements Initializable {
                 if (event.getClickCount() == 1 && (!myRow.isEmpty())) {
                     index = paymentTable.getSelectionModel().getSelectedIndex();
 
+                    id = paymentTable.getItems().get(index).getPaymentId();
                     inputDormerId.setText(String.valueOf(paymentTable.getItems().get(index).getDormerId()));
                     inputDate.setValue(paymentTable.getItems().get(index).getPaymentDate());
                 }
@@ -119,7 +120,49 @@ public class DtPaymentController implements Initializable {
 
     @FXML
     void searchPayment(ActionEvent event) {
-        viewPaymentTable();
+        viewPaymentTable(statusComboBox.getValue(), monthSpinner.getValue(), yearSpinner.getValue());
+    }
+
+    @FXML
+    void addPayment(ActionEvent event) {
+
+        if (paymentDAO.addPayment(Integer.parseInt(inputDormerId.getText()), inputDate.getValue())){
+            monthSpinner.getValueFactory().setValue(inputDate.getValue().getMonthValue());
+            yearSpinner.getValueFactory().setValue(inputDate.getValue().getYear());
+            viewPaymentTable(statusComboBox.getValue(), monthSpinner.getValue(), yearSpinner.getValue());
+            inputDormerId.setText("");
+            inputDate.setValue(null);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong input");
+            alert.show();
+        }
+    }
+
+    @FXML
+    void deletePayment(ActionEvent event) {
+
+        if (paymentDAO.deletePayment(id)){
+            viewPaymentTable(statusComboBox.getValue(), monthSpinner.getValue(), yearSpinner.getValue());
+            inputDormerId.setText("");
+            inputDate.setValue(null);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong input");
+            alert.show();
+        }
+    }
+
+    @FXML
+    void updatePayment(ActionEvent event) {
+        if (paymentDAO.updatePayment(id, Integer.parseInt(inputDormerId.getText()), inputDate.getValue())){
+            monthSpinner.getValueFactory().setValue(inputDate.getValue().getMonthValue());
+            yearSpinner.getValueFactory().setValue(inputDate.getValue().getYear());
+            viewPaymentTable(statusComboBox.getValue(), monthSpinner.getValue(), yearSpinner.getValue());
+            inputDormerId.setText("");
+            inputDate.setValue(null);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong input");
+            alert.show();
+        }
     }
 
 }

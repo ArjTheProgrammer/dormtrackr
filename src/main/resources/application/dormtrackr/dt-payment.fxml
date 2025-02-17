@@ -64,17 +64,17 @@
                         <DatePicker fx:id="inputDate" editable="false" layoutX="15.0" layoutY="158.0" prefHeight="58.0" prefWidth="371.0" style="-fx-text-fill: #282727; -fx-padding: 0 10 0 10; -fx-background-color: #f2f2f0; -fx-text-style: bold;" />
                      </children>
                   </Pane>
-                  <Button layoutX="56.0" layoutY="357.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Add" textFill="#f2f2f0">
+                  <Button layoutX="56.0" layoutY="357.0" mnemonicParsing="false" onAction="#addPayment" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Add" textFill="#f2f2f0">
                      <font>
                         <Font name="Microsoft YaHei Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="175.0" layoutY="357.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Update" textFill="#f2f2f0">
+                  <Button layoutX="175.0" layoutY="357.0" mnemonicParsing="false" onAction="#updatePayment" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Update" textFill="#f2f2f0">
                      <font>
                         <Font name="Microsoft YaHei Bold" size="18.0" />
                      </font>
                   </Button>
-                  <Button layoutX="295.0" layoutY="357.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Delete" textFill="#f2f2f0">
+                  <Button layoutX="295.0" layoutY="357.0" mnemonicParsing="false" onAction="#deletePayment" prefHeight="42.0" prefWidth="105.0" style="-fx-background-color: #e34ea9; -fx-background-radius: 30;" text="Delete" textFill="#f2f2f0">
                      <font>
                         <Font name="Microsoft YaHei Bold" size="18.0" />
                      </font>

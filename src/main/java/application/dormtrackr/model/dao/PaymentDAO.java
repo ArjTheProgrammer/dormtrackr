@@ -32,6 +32,62 @@ public class PaymentDAO extends BaseDAO<Payment> {
 
     private static final String GET_RATIO = "WITH PaidThisMonth AS (SELECT dormer_id FROM Payment WHERE YEAR(payment_date) = YEAR(GETDATE()) AND MONTH(payment_date) = MONTH(GETDATE())) SELECT COUNT(*) AS total_dormers, (SELECT COUNT(*) FROM PaidThisMonth) AS paid_dormers FROM Dormer";
 
+    String ADD_PAYMENT = "INSERT INTO Payment (dormer_id, payment_date) VALUES (?, ?)";
+
+    String DELETE_PAYMENT = "DELETE FROM Payment WHERE payment_id = ?";
+
+    String UPDATE_PAYMENT = "UPDATE Payment SET dormer_id = ?, payment_date = ? WHERE payment_id = ?";
+
+    public boolean addPayment(int dormerId, LocalDate paymentDate) {
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(ADD_PAYMENT)) {
+
+            pstmt.setInt(1, dormerId);
+            pstmt.setDate(2, Date.valueOf(paymentDate));
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0; // Returns true if insertion was successful
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updatePayment(int paymentId, int newDormerId, LocalDate newPaymentDate) {
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(UPDATE_PAYMENT)) {
+
+            pstmt.setInt(1, newDormerId);
+            pstmt.setDate(2, Date.valueOf(newPaymentDate));
+            pstmt.setInt(3, paymentId);
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0; // Returns true if the update was successful
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    public boolean deletePayment(int paymentId) {
+        try (Connection conn = getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(DELETE_PAYMENT)) {
+
+            pstmt.setInt(1, paymentId);
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0; // Returns true if deletion was successful
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
     public String getPaidStudents(){
         try (Connection conn = getConnection();
              PreparedStatement pstmt = conn.prepareStatement(GET_RATIO);
