@@ -75,10 +75,6 @@ public class DtDormerController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         dormerDAO = new DormerDAO();
-        firstName = inputFirstName.getText();
-        lastName = inputLastName.getText();
-        number = inputNumber.getText();
-        email = inputEmail.getText();
         homeButton.setOnAction(event -> loadScene("/application/dormtrackr/dashboard.fxml"));
         viewDormerTable();
     }
@@ -133,6 +129,12 @@ public class DtDormerController implements Initializable {
             return;
         }
 
+        firstName = inputFirstName.getText();
+        lastName = inputLastName.getText();
+        number = inputNumber.getText();
+        email = inputEmail.getText();
+        roomId = Integer.parseInt(inputRoomId.getText());
+
         System.out.println(firstName + lastName + number + email + roomId);
         Dormer dormer = new Dormer(firstName, lastName, number, email, roomId);
 
@@ -175,6 +177,12 @@ public class DtDormerController implements Initializable {
 
     @FXML
     void updateDormer(ActionEvent event) {
+
+        firstName = inputFirstName.getText();
+        lastName = inputLastName.getText();
+        number = inputNumber.getText();
+        email = inputEmail.getText();
+        roomId = Integer.parseInt(inputRoomId.getText());
 
         System.out.println(firstName + lastName + number + email + roomId);
         Dormer dormer = new Dormer(id, firstName, lastName, number, email, roomId);
