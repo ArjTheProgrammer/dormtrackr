@@ -3,6 +3,7 @@ package application.dormtrackr.model.dao;
 import application.dormtrackr.model.Payment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.control.Alert;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -38,16 +39,32 @@ public class PaymentDAO extends BaseDAO<Payment> {
 
     String UPDATE_PAYMENT = "UPDATE Payment SET dormer_id = ?, payment_date = ? WHERE payment_id = ?";
 
+    String CHECK_EXISTING_PAYMENT = "SELECT COUNT(*) FROM Payment WHERE dormer_id = ? AND YEAR(payment_date) = ? AND MONTH(payment_date) = ?";
+
     public boolean addPayment(int dormerId, LocalDate paymentDate) {
-        try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(ADD_PAYMENT)) {
+        try (Connection conn = getConnection()) {
+            // First, check if a payment already exists for this dormer in the same month
+            try (PreparedStatement checkStmt = conn.prepareStatement(CHECK_EXISTING_PAYMENT)) {
+                checkStmt.setInt(1, dormerId);
+                checkStmt.setInt(2, paymentDate.getYear());
+                checkStmt.setInt(3, paymentDate.getMonthValue());
 
-            pstmt.setInt(1, dormerId);
-            pstmt.setDate(2, Date.valueOf(paymentDate));
+                ResultSet rs = checkStmt.executeQuery();
+                if (rs.next() && rs.getInt(1) > 0) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "Dormer already paid this month!");
+                    alert.show();
+                    return false;
+                }
+            }
 
-            int affectedRows = pstmt.executeUpdate();
-            return affectedRows > 0; // Returns true if insertion was successful
+            // If no payment exists, proceed with adding the new payment
+            try (PreparedStatement pstmt = conn.prepareStatement(ADD_PAYMENT)) {
+                pstmt.setInt(1, dormerId);
+                pstmt.setDate(2, Date.valueOf(paymentDate));
 
+                int affectedRows = pstmt.executeUpdate();
+                return affectedRows > 0; // Returns true if insertion was successful
+            }
         } catch (SQLException e) {
             e.printStackTrace();
             return false;
