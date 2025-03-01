@@ -1,10 +1,16 @@
 package application.dormtrackr.model.dao;
 
+import application.dormtrackr.model.Dormer;
+import com.azure.communication.email.*;
+import com.azure.communication.email.models.*;
+import com.azure.core.util.polling.PollResponse;
+import com.azure.core.util.polling.SyncPoller;
 import application.dormtrackr.model.Payment;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
+import javax.print.DocFlavor;
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -35,6 +41,8 @@ public class PaymentDAO extends BaseDAO<Payment> {
 
     String ADD_PAYMENT = "INSERT INTO Payment (dormer_id, payment_date) VALUES (?, ?)";
 
+    String DORMER = "SELECT last_name, email FROM Dormer WHERE dormer_id = ?";
+
     String DELETE_PAYMENT = "DELETE FROM Payment WHERE payment_id = ?";
 
     String UPDATE_PAYMENT = "UPDATE Payment SET dormer_id = ?, payment_date = ? WHERE payment_id = ?";
@@ -63,6 +71,13 @@ public class PaymentDAO extends BaseDAO<Payment> {
                 pstmt.setDate(2, Date.valueOf(paymentDate));
 
                 int affectedRows = pstmt.executeUpdate();
+                try (PreparedStatement sendPstmt = conn.prepareStatement(DORMER)){
+                    sendPstmt.setInt(1, dormerId);
+                    ResultSet rs = sendPstmt.executeQuery();
+                    if (rs.next()) {
+                        sendEmail(rs.getString("last_name"), rs.getString("email"), paymentDate);
+                    }
+                }
                 return affectedRows > 0; // Returns true if insertion was successful
             }
         } catch (SQLException e) {
@@ -160,5 +175,37 @@ public class PaymentDAO extends BaseDAO<Payment> {
         LocalDate paymentDate = (paymentDateSql != null) ? paymentDateSql.toLocalDate() : null;
 
         return new Payment(paymentId, dormerId, dormerName, paymentDate);
+    }
+
+    private void sendEmail(String lastName, String email, LocalDate date){
+        String connectionString = "endpoint=" + System.getenv("endpoint") + ";accesskey=" + System.getenv("accesskey");
+        EmailClient emailClient = new EmailClientBuilder().connectionString(connectionString).buildClient();
+        EmailAddress toAddress = new EmailAddress(email);
+
+        String subject = "Payment Confirmation for " + date.getMonth() + " " + date.getYear();
+        String bodyPlainText = "Dear " + lastName + ",\n\nThank you for your payment for the month of " + date.getMonth() + ".\n\nBest regards,\nYour Dormitory";
+        String bodyHtml = """
+    <html>
+        <body>
+            <h1>Payment Confirmation</h1>
+            <p>Dear %s,</p>
+            <p>Thank you for your payment for the month of %s.</p>
+            <p>Best regards,<br>Dormtrckr</p>
+        </body>
+    </html>
+    """.formatted(lastName, date.getMonth());
+
+
+
+        EmailMessage emailMessage = new EmailMessage()
+                .setSenderAddress("DoNotReply@79e91150-75ae-4844-8d83-52a90063921b.azurecomm.net")
+                .setToRecipients(toAddress)
+                .setSubject(subject)
+                .setBodyPlainText(bodyPlainText)
+                .setBodyHtml(bodyHtml);
+
+        SyncPoller<EmailSendResult, EmailSendResult> poller = emailClient.beginSend(emailMessage, null);
+        PollResponse<EmailSendResult> result = poller.waitForCompletion();
+        System.out.println("email sent!");
     }
 }

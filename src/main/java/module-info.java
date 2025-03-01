@@ -7,6 +7,8 @@ module application.dormtrackr {
     requires org.kordamp.bootstrapfx.core;
     requires java.sql;
     requires com.zaxxer.hikari;
+    requires com.azure.communication.email;
+    requires java.desktop;
 
     opens application.dormtrackr to javafx.fxml;
     exports application.dormtrackr;
