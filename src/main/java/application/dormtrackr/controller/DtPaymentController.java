@@ -132,6 +132,8 @@ public class DtPaymentController implements Initializable {
             viewPaymentTable(statusComboBox.getValue(), monthSpinner.getValue(), yearSpinner.getValue());
             inputDormerId.setText("");
             inputDate.setValue(null);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, "Payment Added!");
+            alert.show();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Wrong input");
             alert.show();

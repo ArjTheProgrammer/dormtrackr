@@ -41,7 +41,7 @@ public class PaymentDAO extends BaseDAO<Payment> {
 
     String ADD_PAYMENT = "INSERT INTO Payment (dormer_id, payment_date) VALUES (?, ?)";
 
-    String DORMER = "SELECT last_name, email FROM Dormer WHERE dormer_id = ?";
+    String DORMER = "SELECT CONCAT(first_name, ' ', last_name) AS dormer_name, email FROM Dormer WHERE dormer_id = ?";
 
     String DELETE_PAYMENT = "DELETE FROM Payment WHERE payment_id = ?";
 
@@ -75,7 +75,7 @@ public class PaymentDAO extends BaseDAO<Payment> {
                     sendPstmt.setInt(1, dormerId);
                     ResultSet rs = sendPstmt.executeQuery();
                     if (rs.next()) {
-                        sendEmail(rs.getString("last_name"), rs.getString("email"), paymentDate);
+                        sendEmail(rs.getString("dormer_name"), rs.getString("email"), paymentDate);
                     }
                 }
                 return affectedRows > 0; // Returns true if insertion was successful
@@ -177,13 +177,13 @@ public class PaymentDAO extends BaseDAO<Payment> {
         return new Payment(paymentId, dormerId, dormerName, paymentDate);
     }
 
-    private void sendEmail(String lastName, String email, LocalDate date){
+    private void sendEmail(String name, String email, LocalDate date){
         String connectionString = "endpoint=" + System.getenv("endpoint") + ";accesskey=" + System.getenv("accesskey");
         EmailClient emailClient = new EmailClientBuilder().connectionString(connectionString).buildClient();
         EmailAddress toAddress = new EmailAddress(email);
 
         String subject = "Payment Confirmation for " + date.getMonth() + " " + date.getYear();
-        String bodyPlainText = "Dear " + lastName + ",\n\nThank you for your payment for the month of " + date.getMonth() + ".\n\nBest regards,\nYour Dormitory";
+        String bodyPlainText = "Dear " + name + ",\n\nThank you for your payment for the month of " + date.getMonth() + ".\n\nBest regards,\nDormtrackr";
         String bodyHtml = """
     <html>
         <body>
@@ -193,7 +193,7 @@ public class PaymentDAO extends BaseDAO<Payment> {
             <p>Best regards,<br>Dormtrckr</p>
         </body>
     </html>
-    """.formatted(lastName, date.getMonth());
+    """.formatted(name, date.getMonth());
 
 
 
